@@ -1,0 +1,21 @@
+labels
+  en
+    value
+
+descriptions
+  en
+    value
+
+claims
+  P#
+    [
+	mainsnak
+	  snaktype
+	  datavalue
+	    value
+	  datatype
+	rank
+    ]
+
+
+property labels z api?

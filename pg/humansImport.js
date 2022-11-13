@@ -45,8 +45,6 @@ client
   );
   `
 
-  // console.log(createQuery)
-
   await client.query(createQuery)
   .then(() => console.log('Humans created'))
   .catch(err => console.error('Creation error', err.stack))
@@ -56,42 +54,6 @@ client
   for (const file of files) {
 
     const allEntities = require(`../resources/humans/${file}`)
-
-        // const claimList = humanProps.map((prop, ind) => {
-        //   if (Object.keys(ent['claims']).includes(prop)) {
-        //     const claimValues = ent['claims'][prop].map(value => {
-        //       // console.log(value)
-        //       switch(value['datatype']) {
-        //         case 'monolingualtext':
-        //           console.log(`'${value['datavalue']['text'].replace(/'/g, "''")}'`)
-        //           return `'${value['datavalue']['text'].replace(/'/g, "''")}'`
-
-        //         case 'wikibase-item':
-        //           console.log(`${value['datavalue']['id']}`)
-        //           return `${value['datavalue']['id']}`
-
-        //         case 'string':
-        //           console.log(`'${value['datavalue'].replace(/'/g, "''")}'`)
-        //           return `${value['datavalue'].replace(/'/g, "''")}`
-
-        //         case 'time':
-        //           console.log(`'${value['datavalue']['time'].replace("+", "")}'`)
-        //           return `${value['datavalue']['time'].replace("+", "")}`
-
-        //         case 'quantity':
-        //           console.log(`${value['datavalue']['amount'].replace("+", "")}`)
-        //           return `${value['datavalue']['amount'].replace("+", "")}`
-        //       }
-        //     }).join(" | ")
-
-        //     if (ent['claims'][prop]['datatype'] == 'quantity') return claimValues
-        //     else return "'"+claimValues+"'"
-
-        //   } else return `NULL`
-        // })
-        //   .join(', ')
-
-        // console.log(claimList)
 
     const chunkSize = 1000;
     for (let i = 0; i < allEntities.length; i += chunkSize) {
@@ -139,13 +101,6 @@ client
                       }
                       else return `${date.toLocaleDateString('en-US', options)}`
                     
-                    // const date = new Date(datestring)
-                    // if (isNaN(date.getDate())) {
-                    //   const newString = datestring.slice(0, 4) + "-01-01T00:00:00Z"
-                    //   // console.log(newString, datestring)
-                    //   return `${newString}`
-                    // }
-                    // return `${datestring}`
     
                   case 'quantity':
                     return `${value['datavalue']['amount'].replace("+", "")}`
@@ -167,10 +122,7 @@ client
           `
     
         console.log('insertquery created')
-        // console.log(insertquery)
         await client.query(insertquery)
-        // .then(() => console.log(`Data inserted from ${file} into Humans ${i}`))
-        // .catch(err => console.error('Insertion error', err.stack))
         console.log(console.log(`Data inserted from ${file} into Humans ${i}`))
     }
   }

@@ -9,8 +9,6 @@ function isValidDate(dateString)
     const month = parseInt(parts[1], 10);
     const year = parseInt(parts[0], 10);
 
-    console.log(year, month, day)
-
     if(year > 3000 || month == 0 || month > 12)
         return false;
 

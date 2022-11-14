@@ -1,3 +1,4 @@
 API error handling
 dodać zdjęcia jako linki do importu / db
 poprawić import dat
+zaimportować krótkie opisy

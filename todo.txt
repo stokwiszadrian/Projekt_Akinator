@@ -2,3 +2,5 @@ API error handling
 dodać zdjęcia jako linki do importu / db
 poprawić import dat
 zaimportować krótkie opisy
+post nowych osób - "znormalizować", aby sprawdzał typy
+dodać możliwość wyszukania osób i zwrócenie "wybranych" właściwości

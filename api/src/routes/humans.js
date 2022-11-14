@@ -23,9 +23,33 @@ router.get('/bylabel/:label', async (req, res) => {
 router.post('/new', async (req, res) => {
     const custom = await client.query("SELECT qid FROM humans WHERE qid LIKE 'C%'")
     const nums = custom.rows.map((value, ind) => parseInt(value.qid.slice(1))).sort((a, b) => a - b)
-
-    return res.send(nums);
+    const props = Object.keys(req.body).join(", ")
+    const values = Object.values(req.body).join(", ")
+    const insert = await client.query(`INSERT INTO humans (qid, label, ${props}) VALUES (${nums.at(-1) + 1}, ${values})`)
+    return res.send(insert)
 })
+
+
+// Przykładowy json dla /filter
+
+// {
+//     "P106": [
+//         {
+//             "type": "WikibaseItem",
+//             "value": "Q82955"
+//         },
+//         {
+//             "type": "WikibaseItem",
+//             "value":  "Q189290"
+//         }
+//     ],
+//     "P569": [
+//         {
+//             "type": "Time",
+//             "value": ">2000-01-01"
+//         }
+//     ]
+// }
 
 router.post('/filter', async (req, res) => {
 

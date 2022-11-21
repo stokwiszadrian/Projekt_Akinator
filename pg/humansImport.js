@@ -49,17 +49,22 @@ client
   .then(() => console.log('Humans created'))
   .catch(err => console.error('Creation error', err.stack))
 
-  const files = allFiles.slice(57)
-    console.log(files)
+  let stream = fs.createWriteStream("insertHumansQuery.txt", {flags: 'a'})
+
+  const chunkSize = 1000;
+
+  const files = allFiles.slice(97)
+  // const files = allFiles
+  console.log(files)
   for (const file of files) {
 
-    const allEntities = require(`../resources/humans/${file}`)
+    let allEntities = JSON.parse(fs.readFileSync(`../resources/humans/${file}`))
+    // const allEntities = require(`../resources/humans/${file}`)
 
-    const chunkSize = 1000;
     for (let i = 0; i < allEntities.length; i += chunkSize) {
-        const entities = allEntities.slice(i, i + chunkSize);
+        let entities = allEntities.slice(i, i + chunkSize);
         
-        const insertquery = `INSERT INTO Humans VALUES
+        let insertquery = `INSERT INTO Humans VALUES
         ${entities.map((ent, ind) => {
           const label = ent.label.replace(/'/g, "''")
     
@@ -122,10 +127,22 @@ client
           `
     
         console.log('insertquery created')
-        await client.query(insertquery)
-        console.log(console.log(`Data inserted from ${file} into Humans ${i}`))
+        // fs.appendFile('humansInsertQuery.txt', insertquery+"\n", (err) => {
+        //   if (err) throw err;
+        //   console.log(`Data inserted from ${file} into Humans ${i}`)
+        // })
+        // await client.query(insertquery)
+        stream.write(insertquery+"\n")
+        console.log(`Data inserted from ${file} into Humans ${i}`)
+
+        entities = null
+        insertquery = null
     }
+
+    allEntities = null;
+
   }
+  stream.end()
 
 })
 .catch(err => console.error('Connection error', err.stack));

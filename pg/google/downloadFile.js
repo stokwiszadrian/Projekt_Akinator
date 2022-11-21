@@ -19,15 +19,35 @@
  * For more information, see the README.md under /storage and the documentation
  * at https://cloud.google.com/storage/docs.
  */
+const {GoogleAuth} = require('google-auth-library');
 const path = require('path');
 const cwd = path.join(__dirname, '..');
+const auth = new GoogleAuth({
+    scopes: 'https://www.googleapis.com/auth/cloud-platform'
+})
+
 require('dot-env').config
 
-function main(
+async function main(
   bucketName = 'q20bucket',
   fileName = 'test_resources.zip',
   destFileName = path.join(cwd, 'downloaded.zip')
 ) {
+    require('dot-env').config
+    const {GoogleAuth} = require('google-auth-library');
+    const path = require('path');
+    const cwd = path.join(__dirname, '..');
+    const auth = new GoogleAuth({
+        scopes: 'https://www.googleapis.com/auth/cloud-platform'
+    })
+
+  const client = await auth.getClient();
+  const projectId = await auth.getProjectId();
+  const url = `https://dns.googleapis.com/dns/v1/projects/${projectId}`;
+  const res = await client.request({ url });
+  console.log(res.data);
+
+    
   // [START storage_download_file]
   /**
    * TODO(developer): Uncomment the following lines before running the sample.
@@ -43,15 +63,17 @@ function main(
 
   // Imports the Google Cloud client library
   const {Storage} = require('@google-cloud/storage');
+  console.log(process.env.GOOGLE_STORAGE_PROJECT_ID)
 
   // Creates a client
   const storage = new Storage({
-    projectId: process.env.GOOGLE_STORAGE_PROJECT_ID,
-    scopes: 'https://www.googleapis.com/auth/cloud-platform',
-    credentials: {
-      client_email: process.env.GOOGLE_STORAGE_EMAIL,
-      private_key: process.env.GOOGLE_STORAGE_PRIVATE_KEY
-    }
+    authClient: client
+    // projectId: process.env.GOOGLE_STORAGE_PROJECT_ID,
+    // scopes: 'https://www.googleapis.com/auth/cloud-platform',
+    // credentials: {
+    //   client_email: process.env.GOOGLE_STORAGE_EMAIL,
+    //   private_key: process.env.GOOGLE_STORAGE_PRIVATE_KEY
+    // }
 });
 
   async function downloadFile() {

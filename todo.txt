@@ -4,3 +4,5 @@ poprawić import dat
 zaimportować krótkie opisy
 post nowych osób - "znormalizować", aby sprawdzał typy
 dodać możliwość wyszukania osób i zwrócenie "wybranych" właściwości
+
+zmienić import danych aby działało z ZIPa

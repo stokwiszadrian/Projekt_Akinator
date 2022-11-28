@@ -1,96 +1,22 @@
-// Copyright 2020 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+const path = require('path')
 
-/**
- * This application demonstrates how to perform basic operations on files with
- * the Google Cloud Storage API.
- *
- * For more information, see the README.md under /storage and the documentation
- * at https://cloud.google.com/storage/docs.
- */
-const {GoogleAuth} = require('google-auth-library');
-const path = require('path');
-const cwd = path.join(__dirname, '..');
-const auth = new GoogleAuth({
-    scopes: 'https://www.googleapis.com/auth/cloud-platform'
-})
+const bucketName = 'q20bucket';
+const srcFileName = 'resources.zip';
+const destFileName = path.join(__dirname, srcFileName);
 
-require('dot-env').config
+const {Storage} = require('@google-cloud/storage');
+const storage = new Storage();
 
-async function main(
-  bucketName = 'q20bucket',
-  fileName = 'test_resources.zip',
-  destFileName = path.join(cwd, 'downloaded.zip')
-) {
-    require('dot-env').config
-    const {GoogleAuth} = require('google-auth-library');
-    const path = require('path');
-    const cwd = path.join(__dirname, '..');
-    const auth = new GoogleAuth({
-        scopes: 'https://www.googleapis.com/auth/cloud-platform'
-    })
+async function downloadPublicFile() {
+  const options = {
+    destination: destFileName,
+  };
 
-  const client = await auth.getClient();
-  const projectId = await auth.getProjectId();
-  const url = `https://dns.googleapis.com/dns/v1/projects/${projectId}`;
-  const res = await client.request({ url });
-  console.log(res.data);
+  await storage.bucket(bucketName).file(srcFileName).download(options);
 
-    
-  // [START storage_download_file]
-  /**
-   * TODO(developer): Uncomment the following lines before running the sample.
-   */
-  // The ID of your GCS bucket
-  // const bucketName = 'your-unique-bucket-name';
-
-  // The ID of your GCS file
-  // const fileName = 'your-file-name';
-
-  // The path to which the file should be downloaded
-  // const destFileName = '/local/path/to/file.txt';
-
-  // Imports the Google Cloud client library
-  const {Storage} = require('@google-cloud/storage');
-  console.log(process.env.GOOGLE_STORAGE_PROJECT_ID)
-
-  // Creates a client
-  const storage = new Storage({
-    authClient: client
-    // projectId: process.env.GOOGLE_STORAGE_PROJECT_ID,
-    // scopes: 'https://www.googleapis.com/auth/cloud-platform',
-    // credentials: {
-    //   client_email: process.env.GOOGLE_STORAGE_EMAIL,
-    //   private_key: process.env.GOOGLE_STORAGE_PRIVATE_KEY
-    // }
-});
-
-  async function downloadFile() {
-    const options = {
-      destination: destFileName,
-    };
-
-    // Downloads the file
-    await storage.bucket(bucketName).file(fileName).download(options);
-
-    console.log(
-      `gs://${bucketName}/${fileName} downloaded to ${destFileName}.`
-    );
-  }
-
-  downloadFile().catch(console.error);
-  // [END storage_download_file]
+  console.log(
+    `Downloaded public file ${srcFileName} from bucket name ${bucketName} to ${destFileName}`
+  );
 }
-main(...process.argv.slice(2));
 
+downloadPublicFile().catch(console.error);

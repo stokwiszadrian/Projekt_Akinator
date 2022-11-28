@@ -1,14 +1,7 @@
 require('dotenv').config();
 const itemprops = require('../resources/itemProps/itemProps.json')
 
-const { Client } = require('pg');
-const client = new Client({
-    user: process.env.PGUSER,
-    host: 'localhost',
-    password: process.env.PGPASSWORD,
-    database: 'akinatordb',
-    port: '5432'
-});
+const client = require('./pgClient')
 
 client
 .connect()

@@ -40,7 +40,8 @@ const humanscopyfile =  () => {
   // const files = allFiles
 //   console.log(files)
   let i = 0
-  for (const file of files) {
+  const file = files[0]
+  // for (const file of files) {
 
     let allEntities = JSON.parse(fs.readFileSync(`../resources/humans/${file}`))
     // const allEntities = require(`../resources/humans/${file}`)
@@ -122,7 +123,7 @@ const humanscopyfile =  () => {
     console.log(`Data inserted from ${file} into Humans`)
     // console.log(insertquery)
 
-    fs.appendFileSync(`./humans.csv`, insertquery)
+    fs.appendFileSync(`./humans_demo.csv`, insertquery)
 
     entities = null
     insertquery = null
@@ -131,11 +132,11 @@ const humanscopyfile =  () => {
     i++
   }
 
-  if (shell.exec(`zip -9 test.zip humans.csv`).code !== 0) {
-    shell.echo('Error: Could not zip humans.csv file');
-    shell.exit(1);
-  }
+  // if (shell.exec(`zip -9 test.zip humans_demo.csv`).code !== 0) {
+  //   shell.echo('Error: Could not zip humans.csv file');
+  //   shell.exit(1);
+  // }
 
-}
+// }
 
 humanscopyfile();

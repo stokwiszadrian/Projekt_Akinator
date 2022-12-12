@@ -6,7 +6,6 @@ const shell = require('shelljs')
 const StreamZip = require('node-stream-zip')
 
 const fs = require('fs')
-const allFiles = fs.readdirSync('../resources/humans/')
 // console.log(allFiles)
 const file = 'humans.csv'
 
@@ -27,38 +26,48 @@ client
 .then(async () => {
   console.log('Connected to PostgreSQL');
 
-  const createQuery = `CREATE TABLE IF NOT EXISTS Humans (
-    qid VARCHAR(12) PRIMARY KEY,
-    label VARCHAR(300) NOT NULL,
-    ${humanProps.map((key, ind) => {
-      const datatype = datatypes[props[key]['type']]
-      if (props[key]['type'] == "WikibaseItem") {
-        if (ind+1 == Object.keys(props).length) return `${key} ${datatype}`
-        else return `${key} ${datatype}`
-      } else {
-        if (ind+1 == Object.keys(props).length) return `${key} ${datatype}`
-        else return `${key} ${datatype}`
-      }
-    })}
-  );
-  `
+  // const createQuery = `CREATE TABLE IF NOT EXISTS Humans (
+  //   qid VARCHAR(12) PRIMARY KEY,
+  //   label VARCHAR(300) NOT NULL,
+  //   ${humanProps.map((key, ind) => {
+  //     const datatype = datatypes[props[key]['type']]
+  //     if (props[key]['type'] == "WikibaseItem") {
+  //       if (ind+1 == Object.keys(props).length) return `${key} ${datatype}`
+  //       else return `${key} ${datatype}`
+  //     } else {
+  //       if (ind+1 == Object.keys(props).length) return `${key} ${datatype}`
+  //       else return `${key} ${datatype}`
+  //     }
+  //   })}
+  // );
+  // `
 
-  await client.query(createQuery)
-  .then(() => console.log('Humans created'))
+  const zip = new StreamZip.async({ file: './resources.zip' })
+
+  await zip.extract('humansCreateTable.txt', './humansCreateTable.txt')
+
+  console.log("humansCreateTable.txt extracted")
+
+  const createQuery = fs.readFileSync("./humansCreateTable.txt")
+  
+  console.log(createQuery.toString())
+
+  await client.query(createQuery.toString())
+  .then(() => console.log('Humans table created'))
   .catch(err => console.error('Creation error', err.stack))
 
-  let i = 18
-
-  const zip = new StreamZip.async({ file: './test.zip' })
-
-  await zip.extract(`humans.csv`, `./humans.csv`)
+  // await zip.extract(`humans.csv`, `./humans.csv`)
 
   console.log("Humans.csv extracted")
 
-  if (shell.exec(`sudo docker cp ./humans.csv projectpg:/humans.csv`).code !== 0) {
+  const dockername = 'postgres'
+
+  if (shell.exec(`docker cp ./humans.csv ${dockername}:/humans.csv`).code !== 0) {
     shell.echo('Error: Unable to copy files to docker container.');
     shell.exit(1);
   }
+
+  console.log("Copied to docker")
 
   const copyQuery = `COPY Humans FROM '/${file}' DELIMITER ';' quote E'\b' CSV;`
 

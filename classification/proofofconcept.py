@@ -1,17 +1,22 @@
 import gc
 import time
+import sys
 
 import psycopg2 as pg
 import numpy as np
 import scipy.sparse
 import pandas as pd
 import datetime
+
+import generate_sub_tree
 from calc_total_entropy import calc_total_entropy as total_entropy_calc
 from calc_entropy import calc_entropy as entropy_calc
 from calc_info_gain import calc_info_gain
 from find_most_informative_feature import find_most_informative_feature
 from id3 import id3
 # from memory_profiler import profile
+
+sys.setrecursionlimit(10000)
 
 # @profile
 def castDate(value, cur):
@@ -54,7 +59,7 @@ if __name__ == "__main__":
     humansquery = """
     select * from humans
     order by length(qid)
-    limit 1000;"""
+    limit 100;"""
 
     # order by length(qid)
 
@@ -100,10 +105,13 @@ if __name__ == "__main__":
     # info_gain = calc_info_gain("p21", all, "qid", class_list)
     # print("Info gain:", info_gain)
     # most_informative_feature = find_most_informative_feature(all, features, "qid", class_list)
-    # print(most_informative_feature)
-
+    # print("MOST INFORMATIVE FEATURE: \n", most_informative_feature)
+    print(class_list)
+    # print(all)
     decision_tree = id3(all, "qid", class_list, features)
+    print("----------------------------- FINAL DECISION TREE -----------------------------")
     print(decision_tree)
-
+    # subtree = generate_sub_tree.generate_sub_tree(most_informative_feature, all, 'qid', class_list)
+    # print("SUBTREE: \n", subtree)
     cur.close()
     conn.close()

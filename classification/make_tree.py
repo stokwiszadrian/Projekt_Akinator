@@ -22,20 +22,17 @@ def make_tree(root, prev_feature_value, train_data, label, class_list, feature_l
             next_root = root[max_info_feature]
 
         max_info_feature_cp = max_info_feature
-        # print("MAX INFO BEFORE BRANCHING: ", max_info_feature)
         print("NEXT ROOT: ", next_root)
+        try:
+            feature_list.remove(max_info_feature)
+        except ValueError:
+            print(max_info_feature, " already deleted")
 
         for node, branch in list(next_root.items()):  # iterating the tree node
             # print("NODE, BRANCH: ", node, branch)
-            # print("MAX INFO looping: ", prev_feature_value, max_info_feature)
             if branch == "?":  # if it is expandable
-                feature_value_data = {k: v for k, v in train_data.items() if v.get(max_info_feature_cp, None) is None or (isinstance(v.get(max_info_feature_cp, None), str) and node in v.get(max_info_feature_cp, None))}
-                # print("MAX INFO AFTER FEATURE_VALUE_DATA: ", max_info_feature)
+                feature_value_data = {k: v for k, v in list(train_data.items()) if v.get(max_info_feature, None) is None or (isinstance(v.get(max_info_feature, None), str) and node in v.get(max_info_feature, None))}
                 new_class_list = list(feature_value_data.keys())
-                #
-                try:
-                    feature_list.remove(max_info_feature)
-                except ValueError:
-                    print(max_info_feature, " already deleted")
+
                # print("FEATURE VALUE DATA: ", feature_value_data)# using the updated dataset
                 make_tree(next_root, node, feature_value_data, label, new_class_list, feature_list)  # recursive call with updated dataset

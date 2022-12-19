@@ -14,6 +14,7 @@ from calc_entropy import calc_entropy as entropy_calc
 from calc_info_gain import calc_info_gain
 from find_most_informative_feature import find_most_informative_feature
 from id3 import id3
+from predict import predict
 # from memory_profiler import profile
 
 sys.setrecursionlimit(10000)
@@ -59,7 +60,7 @@ if __name__ == "__main__":
     humansquery = """
     select * from humans
     order by length(qid)
-    limit 100;"""
+    limit 1000;"""
 
     # order by length(qid)
 
@@ -98,19 +99,18 @@ if __name__ == "__main__":
     # Q6581097 - male
     # p27 - country of citizenship
 
-    # males = {k: v for k, v in all.items() if v.get('p21', None) == 'Q6581097'}
-    # print(males)
-    # feature_entropy = entropy_calc(males, "qid", class_list)
-    # print("Male entropy: ", feature_entropy)
-    # info_gain = calc_info_gain("p21", all, "qid", class_list)
-    # print("Info gain:", info_gain)
-    # most_informative_feature = find_most_informative_feature(all, features, "qid", class_list)
-    # print("MOST INFORMATIVE FEATURE: \n", most_informative_feature)
     print(class_list)
     # print(all)
     decision_tree = id3(all, "qid", class_list, features)
     print("----------------------------- FINAL DECISION TREE -----------------------------")
     print(decision_tree)
+    george_bush = {
+        "p21": "Q6581097",
+        "p31": "Q5",
+        "p7763": "Q73555012",
+        "p3438": "Q1025171"
+    }
+    print(predict(decision_tree, george_bush))
     # subtree = generate_sub_tree.generate_sub_tree(most_informative_feature, all, 'qid', class_list)
     # print("SUBTREE: \n", subtree)
     cur.close()

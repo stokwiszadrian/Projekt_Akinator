@@ -23,8 +23,8 @@ def calc_info_gain(feature_name, train_data, label, class_list):
         else:
             return -1
     feature_value_list = list(set(feature_value_list))
-    if feature_name == "p27":
-        print("VALUE LIST FOR P27", feature_value_list)
+    # if feature_name == "p27":
+    #     print("VALUE LIST FOR P27", feature_value_list)
     # print(feature_value_list) # unqiue values of the feature
 
     # częściowe dane - ignorujemy przypadki gdy kolumna dla wszystkich jest pusta

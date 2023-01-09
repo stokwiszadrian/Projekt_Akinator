@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { Grid, Typography} from "@mui/material"
 
 
-const PersonList = (props) => {
+const AboutComp = (props) => {
 
     return (
         <Grid container spacing={0} alignItems="flex-start" justifyContent="center" direction="row">
@@ -42,4 +42,4 @@ const PersonList = (props) => {
 }
 
 
-export default PersonList
+export default AboutComp

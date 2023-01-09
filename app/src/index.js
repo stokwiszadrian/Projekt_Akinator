@@ -7,9 +7,9 @@ import store from './ducks/store'
 import { Provider } from 'react-redux';
 import { Navigate } from 'react-router';
 import { Routes, Route, BrowserRouter} from 'react-router-dom';
-import PersonList from './ui/GameComp'
-import MovieList from './ui/MainComp';
-import AboutPage from './ui/AboutComp';
+import GameComp from './ui/GameComp'
+import MainComp from './ui/MainComp';
+import AboutComp from './ui/AboutComp';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -17,9 +17,9 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />} >
           <Route path="/" exact element={<Navigate replace to="/main" />} />
-          <Route path="main" element={<MovieList />} />
-          <Route path="game" element={<PersonList />} />
-          <Route path="about" element={<AboutPage />} />
+          <Route path="main" element={<MainComp />} />
+          <Route path="game" element={<GameComp />} />
+          <Route path="about" element={<AboutComp />} />
         </Route>
       </Routes>
     </BrowserRouter>

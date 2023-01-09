@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Button, Typography, Grid, Fade } from "@mui/material"
 
 
-const MovieList = (props) => {
+const MainComp = (props) => {
     const navigate = useNavigate()
     const [mainFade, setMainFade] = useState(false)
     const [buttonFade1, setButtonFade1] = useState(false)
@@ -104,4 +104,4 @@ const MovieList = (props) => {
     )
 }
 
-export default MovieList
+export default MainComp

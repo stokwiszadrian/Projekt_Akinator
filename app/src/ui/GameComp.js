@@ -3,7 +3,7 @@ import { Link} from "react-router-dom"
 import { Button, Grid, Typography, Collapse } from "@mui/material"
 
 
-const PersonList = (props) => {
+const GameComp = (props) => {
     const [collapseState, setCollapseState] = useState(false)
     const [questionNumber, setQuestionNumber] = useState(1)
     const [answers, setAnswers] = useState({})
@@ -82,4 +82,4 @@ const PersonList = (props) => {
     )
 }
 
-export default PersonList
+export default GameComp

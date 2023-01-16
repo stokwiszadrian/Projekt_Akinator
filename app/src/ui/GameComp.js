@@ -1,27 +1,53 @@
 import { useEffect, useState } from "react"
 import { Link} from "react-router-dom"
 import { Button, Grid, Typography, Collapse } from "@mui/material"
-
+import axios from "axios"
+import { MD5 } from "crypto-js"
 
 const GameComp = (props) => {
     const [collapseState, setCollapseState] = useState(false)
-    const [questionNumber, setQuestionNumber] = useState(1)
-    const [answers, setAnswers] = useState({})
+    // const [questionNumber, setQuestionNumber] = useState(1)
+    const [imgUrl, setImgUrl] = useState("")
+    const [gameState, setGameState] = useState({
+        answered_yes: false,
+        instance: {},
+        excluded: []
+    })
+    const [currentQuestion, setCurrentQuestion] = useState({
+        question: "",
+        value: {}
+    })
 
-    const mockHandleClick = (value) => {
+    const mockHandleClick = (ans) => {
         setCollapseState(false)
-        setTimeout(() => {
-            setCollapseState(true)
-            setQuestionNumber(questionNumber + 1)
-            setAnswers({
-            ...answers,
-            [questionNumber]: value
-        })
-        if ( questionNumber >= 10 ) {
-            alert(JSON.stringify(answers))
-            setQuestionNumber(1)
-            setAnswers({})
+        const questionKey = Object.keys(currentQuestion.value)[0]
+        // Jeśli odpowiedź brzmi "Tak"
+        if (ans) {
+            setGameState({
+                answered_yes: true,
+                instance: {
+                    ...gameState.instance,
+                    [questionKey]: currentQuestion.value[questionKey]
+                },
+                excluded: []
+            })
+        // Jeśli odpowiedź brzmi "Nie"
+        } else {
+            setGameState({
+                answered_yes: false,
+                instance: {
+                    ...gameState.instance
+                },
+                excluded: [
+                    ...gameState.excluded,
+                    currentQuestion.value[questionKey]
+                ]
+            })
         }
+
+        
+        setTimeout(() => {
+            // const res = await axios.post("http://localhost:5000", gameState)
             setCollapseState(true)
         }, 450)
     }
@@ -29,6 +55,29 @@ const GameComp = (props) => {
     useEffect(() => {
         setCollapseState(true)
     }, [])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.post("http://localhost:5000", gameState)
+            setCurrentQuestion(res.data)
+            console.log(res.data)
+            if (!res.data.question.includes("?")) {
+                const imgRequest = await axios.get(`http://localhost:4000/api/humans/img/${res.data.question}`)
+                if (imgRequest.data != "Not found") {
+                    setImgUrl(`https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/${imgRequest.data}`)
+                } else {
+                    setImgUrl('../default_person.png')
+                }
+                const labelRequest = await axios.get(`http://localhost:4000/api/humans/byqid/${res.data.question}`)
+                console.log(labelRequest.data)
+                setCurrentQuestion({
+                    question: labelRequest.data.label,
+                    value: {}
+                })
+            }
+        }
+        fetchData()
+    }, [gameState])
 
 
     
@@ -51,27 +100,51 @@ const GameComp = (props) => {
                         <Collapse in={collapseState}>
                             <Grid container spacing={0} direction="row" padding={3}>
                                 <Grid item xs={12} display="flex" justifyContent="center">
-                                    <Typography fontSize={{md: '4.5ex', xs: '3ex'}} sx={{ color: 'white'}}>
-                                        <i>Question no. {questionNumber}</i>
-                                    </Typography>
+                                    <Grid container spacing={0} justifyContent="center">
+                                        <Grid item xs={12} display="flex" justifyContent="center">
+                                            <Typography fontSize={{md: '4.5ex', xs: '3ex'}} sx={{ color: 'white'}}>
+                                                <i>{currentQuestion.question}</i>
+                                            </Typography>
+                                        </Grid>
+                                   
+                                        { (imgUrl !== "") ? 
+                                        <Grid item xs={12} display="flex" justifyContent="center">
+                                            <img 
+                                            src={imgUrl}
+                                            style={{
+                                                maxWidth: '60%',
+                                                // maxHeight: '100%'
+                                                minHeight: '50%'
+                                            }}></img> 
+                                        </Grid>
+                                        
+                                        :
+                                        <Grid item xs={12}>
+                                            <></>
+                                        </Grid> }
+                                    </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
+                                    { (imgUrl === "" ) ? 
                                     <Grid container spacing={3} justifyContent="center" alignItems="center" padding={4}>
                                         <Grid item xs={4} md={3} xl={2.5}>
-                                            <Button variant="contained" fullWidth color="error" onClick={() => mockHandleClick("NO")}>
+                                            <Button variant="contained" fullWidth color="error" onClick={() => mockHandleClick(false)}>
                                                 <Typography variant="h5" sx={{ color: 'white' }}>
                                                     <b>NO</b>
                                                 </Typography>
                                             </Button>
                                         </Grid>
                                         <Grid item xs={4} md={3} xl={2.5}>
-                                            <Button variant="contained" fullWidth color="success" onClick={() => mockHandleClick("YES")}>
+                                            <Button variant="contained" fullWidth color="success" onClick={() => mockHandleClick(true)}>
                                                 <Typography variant="h5" sx={{ color: 'white' }}>
                                                     <b>YES</b>
                                                 </Typography>
                                             </Button>
                                         </Grid>
                                     </Grid>
+                                    :
+                                    <></>}
+                                    
                                 </Grid>
                             </Grid>
                         </Collapse>

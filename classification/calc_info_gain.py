@@ -10,8 +10,10 @@ def calc_info_gain(feature_name, train_data, label, class_list):
     for c in class_list:
         feature_value = train_data[c].get(feature_name, None)
         if feature_value is None:
-            continue
-        if isinstance(feature_value, str):
+            if "None" not in feature_value_list:
+                feature_value_list.append("None")
+                feature_count += 1
+        elif isinstance(feature_value, str):
             if "|" in feature_value:
                 splits = feature_value.split(" | ")
                 for split in splits:
@@ -23,14 +25,15 @@ def calc_info_gain(feature_name, train_data, label, class_list):
         else:
             return -1
     feature_value_list = list(set(feature_value_list))
+
     # if feature_name == "p27":
     #     print("VALUE LIST FOR P27", feature_value_list)
     # print(feature_value_list) # unqiue values of the feature
 
     # częściowe dane - ignorujemy przypadki gdy kolumna dla wszystkich jest pusta
     if len(feature_value_list) == 0:
-        return -999999
+        return -1
     else:
-        # print("FEATURE COUNT: ", feature_count, "\nFEATURE VALUE LIST LENGTH: ", len(feature_value_list))
+        print("FEATURE COUNT: ", feature_count, "\nFEATURE VALUE LIST LENGTH: ", len(feature_value_list))
         return feature_count / len(feature_value_list)
 

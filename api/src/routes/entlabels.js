@@ -15,8 +15,8 @@ router.get('/bylabel/:label', async (req, res) => {
 
 router.get('/byqid/:qid', async (req, res) => {
     const qid = req.params.qid
-    const entities = await client.query(`SELECT qid, label FROM propertyentitylabels WHERE qid = '${qid}'`)
-    res.send(entities.rows)
+    const entities = await client.query(`SELECT label FROM propertyentitylabels WHERE qid = '${qid}'`)
+    res.send(entities.rows[0])
 })
 
 

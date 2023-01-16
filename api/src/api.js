@@ -21,7 +21,7 @@ client
 .then(() => {
   console.log('Connected to PostgreSQL');
 
-  const port = process.env.PORT || 5000
+  const port = process.env.PORT | 4000
   app.listen(port, () => {
     console.log(`API server listening at http://localhost:${port}`);
   });

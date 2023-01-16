@@ -14,6 +14,12 @@ router.get('/', async (req, res) => {
     return res.send(humans.rows);
 })
 
+router.get('/byqid/:qid', async (req, res) => {
+    const qid = req.params.qid
+    const person = await client.query(`SELECT label FROM humans WHERE qid = '${qid}'`)
+    return res.send(person.rows[0])
+})
+
 router.get('/bylabel/:label', async (req, res) => {
     const label = req.params.label
     const humans = await client.query(`SELECT qid, label FROM humans WHERE LOWER(label) = '${label}'`)
@@ -27,6 +33,22 @@ router.post('/new', async (req, res) => {
     const values = Object.values(req.body).join(", ")
     const insert = await client.query(`INSERT INTO humans (qid, label, ${props}) VALUES (${nums.at(-1) + 1}, ${values})`)
     return res.send(insert)
+})
+
+router.get('/img/:qid', async (req, res) => {
+    const imgRequest = await fetch(
+        `https://www.wikidata.org/w/api.php?action=wbgetclaims&property=P18&entity=${req.params.qid}&format=json`, {
+            method: 'GET',
+
+        })
+    const imgJson = await imgRequest.json()
+    console.log(imgJson)
+    try {
+        const imgPath = imgJson["claims"]["P18"][0]["mainsnak"]["datavalue"]["value"].replaceAll(" ", "_")
+        return res.send(imgPath)
+    } catch(err) {
+        return "Not found"
+    }
 })
 
 

@@ -1,16 +1,1 @@
-API error handling
-dodać zdjęcia jako linki do importu / db
-poprawić import dat
-zaimportować krótkie opisy
-post nowych osób - "znormalizować", aby sprawdzał typy
-dodać możliwość wyszukania osób i zwrócenie "wybranych" właściwości
-
-
-    # ----------------------------------------------------------------
-    # trzeba ściągnąć wszystkie osoby
-    # może do pliku albo cos takiego
-    # spróbować z samym ściąganiem wszyskich QID, a osób mniej
-    # może nie trzeba całego ID3, tylko tyle by podzielił
-    # Gini index?
-    # spróbować wygenerować listę najczęstszych atrybutów zamiast decision tree
-    # ----------------------------------------------------------------
+SPRAWDZIC DZIALANIE NA SIGMIE---------------------------------------------

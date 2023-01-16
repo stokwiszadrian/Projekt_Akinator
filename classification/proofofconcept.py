@@ -1,4 +1,5 @@
 import gc
+import re
 import time
 import sys
 import json
@@ -60,8 +61,31 @@ if __name__ == "__main__":
                             best_prop, best_value = best_prop_value(subtree)
                         else:
                             best_prop, best_value = best_prop_value(subtree, excluded)
+
+                        prop_label = requests.get(f"http://localhost:4000/api/proplabels/bypid/{best_prop}").json()[
+                            "prop_label"]
+                        if best_value is None:
+                            return {
+                            "question": f"Person not found",
+                            "value": {
+                                "guess": best_value
+                            }
+                        }
+                        if best_value != "None":
+                            print("BEST VALUE", best_value, type(best_value))
+                            matchstring = 'Q[0-9][0-9]*'
+                            if re.search(matchstring, best_value) is not None:
+                                print("Searching...")
+                                try:
+                                    value_label = requests.get(f"http://localhost:4000/api/entlabels/byqid/{best_value}").json()["label"]
+                                except requests.exceptions.JSONDecodeError as e:
+                                    value_label = best_value
+                            else:
+                                value_label = best_value
+                        else:
+                            value_label = best_value
                         return {
-                            "question": f"question about {best_value} ?",
+                            "question": f"{prop_label}: {value_label} ?",
                             "value": {
                                 best_prop: best_value
                             }
@@ -76,7 +100,7 @@ if __name__ == "__main__":
                         return {
                             "question": f"{person_label}",
                             "value": {
-                                "guess": person_label
+                                "guess": subtree
                             }
                         }
                     else:
@@ -86,9 +110,24 @@ if __name__ == "__main__":
                         else:
                             best_prop, best_value = best_prop_value(counted, excluded)
                         prop_label = requests.get(f"http://localhost:4000/api/proplabels/bypid/{best_prop}").json()["prop_label"]
+                        if best_value is None:
+                            return {
+                            "question": f"Person not found",
+                            "value": {
+                                "guess": best_value
+                            }
+                        }
                         if best_value != "None":
-                            print(best_value)
-                            value_label = requests.get(f"http://localhost:4000/api/entlabels/byqid/{best_value}").json()["label"]
+                            print("BEST VALUE", best_value)
+                            matchstring = 'Q[0-9][0-9]*'
+                            if re.search(matchstring, best_value) is not None:
+                                print("Searching...")
+                                try:
+                                    value_label = requests.get(f"http://localhost:4000/api/entlabels/byqid/{best_value}").json()["label"]
+                                except requests.exceptions.JSONDecodeError as e:
+                                    value_label = best_value
+                            else:
+                                value_label = best_value
                         else:
                             value_label = best_value
                         return {

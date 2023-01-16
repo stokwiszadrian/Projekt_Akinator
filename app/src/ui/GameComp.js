@@ -62,18 +62,17 @@ const GameComp = (props) => {
             setCurrentQuestion(res.data)
             console.log(res.data)
             if (!res.data.question.includes("?")) {
-                const imgRequest = await axios.get(`http://localhost:4000/api/humans/img/${res.data.question}`)
-                if (imgRequest.data != "Not found") {
-                    setImgUrl(`https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/${imgRequest.data}`)
+                if (res.data.value.guess != null) {
+                    const imgRequest = await axios.get(`http://localhost:4000/api/humans/img/${res.data.value.guess}`)
+                    if (imgRequest.data != "Not found") {
+                        setImgUrl(`https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/${imgRequest.data}`)
+                    } else {
+                        setImgUrl('../default_person.png')
+                    }
                 } else {
                     setImgUrl('../default_person.png')
                 }
-                const labelRequest = await axios.get(`http://localhost:4000/api/humans/byqid/${res.data.question}`)
-                console.log(labelRequest.data)
-                setCurrentQuestion({
-                    question: labelRequest.data.label,
-                    value: {}
-                })
+                
             }
         }
         fetchData()
@@ -113,8 +112,8 @@ const GameComp = (props) => {
                                             src={imgUrl}
                                             style={{
                                                 maxWidth: '60%',
-                                                // maxHeight: '100%'
-                                                minHeight: '50%'
+                                                // maxHeight: '60%',
+                                                height: '100%'
                                             }}></img> 
                                         </Grid>
                                         

@@ -1,5 +1,7 @@
 require('dotenv').config();
+const shell = require('shelljs')
 
+const dockername = 'projectpg'
 const file = 'entities.csv'
 
 const client = require('./pgClient')
@@ -17,6 +19,12 @@ client
   .then(() => console.log('PropertyEntityLabels created'))
   .catch(err => console.error('Creation error', err.stack))
 
+  if (shell.exec(`sudo docker cp ./${file} ${dockername}:/${file}`).code !== 0) {
+    shell.echo('Error: Unable to copy files to docker container.');
+    shell.exit(1);
+  }
+
+  console.log("Copied to docker")
   
   const copyQuery = `COPY PropertyEntityLabels FROM '/${file}' DELIMITER ',' CSV;`
 

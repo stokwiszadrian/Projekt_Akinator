@@ -1,0 +1,237 @@
+p6,head of government,WikibaseItem,Is this person the head of government in QQ ?
+p17,country,WikibaseItem,Is this person from QQ ?
+p19,place of birth,WikibaseItem,Was this person born in QQ ?
+p20,place of death,WikibaseItem,Did this person die in QQ ?
+p21,sex or gender,WikibaseItem,Is this person a QQ ?
+p22,father,WikibaseItem,Is this person a father to QQ ?
+p25,mother,WikibaseItem,Is this person a mother to QQ ?
+p26,spouse,WikibaseItem,Is this persons spouse QQ ?
+p27,country of citizenship,WikibaseItem,Is this person a citizen of QQ ?
+p30,continent,WikibaseItem,Is this person from QQ ?
+p31,instance of,WikibaseItem,Is this person a QQ ?
+p39,position held,WikibaseItem,Does this person hold a position of QQ ?
+p40,child,WikibaseItem,Is this person QQ s child?
+p50,author,WikibaseItem,Is this person the author of QQ ?
+p53,family,WikibaseItem,Is this person a QQ family member ?
+p54,member of sports team,WikibaseItem,Is this person a member of QQ ?
+p57,director,WikibaseItem,Did this person direct QQ ?
+p58,screenwriter,WikibaseItem,Did this person write QQ ?
+p61,discoverer or inventor,WikibaseItem,Did this person discover/invent QQ ?
+p66,ancestral home,WikibaseItem,Is this persons ancestral home in QQ ?
+p69,educated at,WikibaseItem,Was this person educated at QQ ?
+p85,anthem,WikibaseItem,Is this persons anthem QQ ?
+p86,composer,WikibaseItem,Did this person compose QQ ?
+p91,sexual orientation,WikibaseItem,Is QQ this persons sexual orientation ?
+p97,noble title,WikibaseItem,Is this person titled QQ ?
+p98,editor,WikibaseItem,Did this person edit QQ ?
+p101,field of work,WikibaseItem,Does this person work in QQ ?
+p102,member of political party,WikibaseItem,Is this person a member of QQ ?
+p103,native language,WikibaseItem,Does this person speak QQ natively ?
+p106,occupation,WikibaseItem,Is this person a QQ ?
+p108,employer,WikibaseItem,Is this person employed in/by QQ ?
+p112,founded by,WikibaseItem,Is this person founded by QQ ?
+p118,league,WikibaseItem,Does this person play in QQ ?
+p119,place of burial,WikibaseItem,Was this person buried in QQ ?
+p121,item operated,WikibaseItem,Does this person operate QQ ?
+p123,publisher,WikibaseItem,Is this persons publisher QQ ?
+p127,owned by,WikibaseItem,Is this person owned by QQ ?
+p131,located in the administrative territorial entity,WikibaseItem,Is this person located in QQ ?
+p135,movement,WikibaseItem,Is this person a member of QQ movement ?
+p136,genre,WikibaseItem,Is this person associated with QQ genre ?
+p137,operator,WikibaseItem,Does this person operate QQ ?
+p138,named after,WikibaseItem,Is this person named after QQ ?
+p140,religion or worldview,WikibaseItem,Is this persons believe system based on QQ ?
+p149,architectural style,WikibaseItem,Does this persons work displa
+p155,follows,WikibaseItem,Does this person follow QQ ?
+p156,followed by,WikibaseItem,Is this person followed by QQ ?
+p157,killed by,WikibaseItem,Was this person killed by QQ ?
+p159,headquarters location,WikibaseItem,Are these persons headquarters located in QQ ?
+p161,cast member,WikibaseItem,Is this person a cast member of QQ ?
+p162,producer,WikibaseItem,Is this person a producer of QQ ?
+p166,award received,WikibaseItem,Did this person receive QQ ?
+p169,chief executive officer,WikibaseItem,Is this person the CEO of QQ ?
+p170,creator,WikibaseItem,Did this person create QQ ?
+p172,ethnic group,WikibaseItem,Is this person a member of QQ ethnic group ?
+p175,performer,WikibaseItem,Is this person a QQ performer ?
+p178,developer,WikibaseItem,Did this person develop QQ ?
+p179,part of the series,WikibaseItem,Is this person the part of QQ ?
+p180,depicts,WikibaseItem,Does this person depict QQ ?
+p184,doctoral advisor,WikibaseItem,Was QQ this persons doctoral advisor ?
+p185,doctoral student,WikibaseItem,Was QQ this persons doctoral student ?
+p189,location of discovery,WikibaseItem,Was this person found in QQ ?
+p195,collection,WikibaseItem,Is this person a part of QQ collection ?
+p237,coat of arms,WikibaseItem,Is QQ this persons coat of arms ?
+p241,military branch,WikibaseItem,Does this person fight in the QQ ?
+p263,official residence,WikibaseItem,Does this person reside in QQ ?
+p264,record label,WikibaseItem,Is QQ this persons record label ?
+p272,production company,WikibaseItem,Does this person work at QQ ?
+p276,location,WikibaseItem,Does this person live in QQ ?
+p282,writing system,WikibaseItem,Does this person write in QQ ?
+p286,head coach,WikibaseItem,Was this person coached by QQ ?
+p361,part of,WikibaseItem,Is this persont a part of QQ ?
+p371,presenter,WikibaseItem,Is this person a presenter in QQ ?
+p407,language of work or name,WikibaseItem,Are this persons works written in QQ ?
+p410,military rank,WikibaseItem,Is this person a QQ ?
+p411,canonization status,WikibaseItem,Is this person a QQ ?
+p412,voice type,WikibaseItem,Is this persons voice type a QQ ?
+p413,position played on team / speciality,WikibaseItem,Does this person play as a QQ ?
+p417,patron saint,WikibaseItem,Is this person a patron saint of QQ ?
+p423,shooting handedness,WikibaseItem,Is this person a QQ ?
+p449,original broadcaster,WikibaseItem,Was this person originally broadcasted on QQ ?
+p450,astronaut mission,WikibaseItem,Did this person participate in QQ mission ?
+p451,unmarried partner,WikibaseItem,Is this person in relationship with QQ ?
+p452,industry,WikibaseItem,Does this person work in QQ ?
+p461,opposite of,WikibaseItem,Is this person the opposite of QQ ?
+p463,member of,WikibaseItem,Is this person a member of QQ ?
+p468,dan/kyu rank,WikibaseItem,Is this person dan/kyu rank QQ ?
+p488,chairperson,WikibaseItem,Is this person a chairperson in QQ ?
+p495,country of origin,WikibaseItem,Is this person from QQ ?
+p509,cause of death,WikibaseItem,Did this person die of QQ ?
+p511,honorific prefix,WikibaseItem,Is this persons honorific prefix QQ ?
+p512,academic degree,WikibaseItem,Is this person have a QQ degree ?
+p520,armament,WikibaseItem,Does this person use a QQ ?
+p531,diplomatic mission sent,WikibaseItem,Did this person work at QQ ?
+p547,commemorates,WikibaseItem,Does this person commemorate QQ ?
+p550,chivalric order,WikibaseItem,Is this person from QQ ?
+p551,residence,WikibaseItem,Does this person reside in QQ ?
+p552,handedness,WikibaseItem,Is this person QQ ?
+p555,doubles record,String,Is this persons doubles record equal QQ ?
+p607,conflict,WikibaseItem,Did this person participate in QQ ?
+p608,exhibition history,WikibaseItem,Were this persons works once exhibited in QQ ?
+p611,religious order,WikibaseItem,Is this person from QQ order ?
+p641,sport,WikibaseItem,Does this person plays/participates in QQ ?
+p647,drafted by,WikibaseItem,Was this person drafted by QQ ?
+p664,organizer,WikibaseItem,Did this person organize QQ ?
+p708,diocese,WikibaseItem,Does this person belong to QQ ?
+p710,participant,WikibaseItem,Did this person participate in QQ ?
+p726,candidate,WikibaseItem,Was this person a QQ candidate ?
+p734,family name,WikibaseItem,Is this persons family name QQ ?
+p735,given name,WikibaseItem,Is this persons given name QQ ?
+p737,influenced by,WikibaseItem,Is this person influenced by QQ ?
+p741,playing hand,WikibaseItem,Does this person display QQ while playing ?
+p742,pseudonym,WikibaseItem,Is this person also known as QQ ?
+p748,appointed by,WikibaseItem,Was this person appointed by QQ ?
+p767,contributor to the creative work or subject,WikibaseItem,Did this person contribute to QQ ?
+p793,significant event,WikibaseItem,Was QQ a significant event in this persons life ?
+p797,authority,WikibaseItem,Does/Did this person have an authority over QQ ?
+p800,notable work,WikibaseItem,Is this person known for QQ ?
+p802,student,WikibaseItem,Was QQ this persons student ?
+p803,professorship,WikibaseItem,Is this person a QQ / Is this person a professor at QQ ?
+p811,academic minor,WikibaseItem,Did this person study QQ ?
+p812,academic major,WikibaseItem,Did this person study QQ ?
+p823,speaker,WikibaseItem,Was this person a speaker at QQ ?
+p835,author citation (zoology),String,Is QQ used as a citation in zoology after this person ?
+p841,feast day,WikibaseItem,Is QQ this persons feast day ?
+p859,sponsor,WikibaseItem,Is this person sponsored by QQ ?
+p937,work location,WikibaseItem,Is this persons work located in QQ ?
+p941,inspired by,WikibaseItem,Was this person inspired by QQ ?
+p945,allegiance,WikibaseItem,Does this person serve QQ ?
+p967,guest of honor,WikibaseItem,Was this person the guest of honor at QQ ?
+p991,successful candidate,WikibaseItem,Did this person win the QQ ?
+p1000,record held,WikibaseItem,Did this person once hold a record in their discipline ?
+p1026,academic thesis,WikibaseItem,Did this person write a thesis about QQ ?
+p1035,honorific suffix,WikibaseItem,Is this person honorific suffix QQ ?
+p1037,director / manager,WikibaseItem,Is this person director / manager of QQ ?
+p1038,relative,WikibaseItem,Is this person QQ s relative ?
+p1039,kinship to subject,WikibaseItem,Is this person QQ s relative ?
+p1049,worshipped by,WikibaseItem,Is this person worshipped in QQ ?
+p1050,medical condition,WikibaseItem,Does this person suffer from QQ ?
+p1056,product or material produced,WikibaseItem,Does this person produce/produced QQ ?
+p1066,student of,WikibaseItem,Was this person a student of QQ ?
+p1080,from narrative universe,WikibaseItem,Is this person from QQ ?
+p1142,political ideology,WikibaseItem,Does this person represent QQ ?
+p1268,represents,WikibaseItem,Does this person represent QQ ?
+p1269,facet of,WikibaseItem,Is this person an important figure in QQ ?
+p1290,godparent,WikibaseItem,Is QQ this persons godparent ?
+p1303,instrument,WikibaseItem,Does this person play QQ ?
+p1308,officeholder,WikibaseItem,Is this person a QQ ?
+p1327,partner in business or sport,WikibaseItem,Has this person partnered with QQ ?
+p1340,eye color,WikibaseItem,Does this person have QQ eyes ?
+p1344,participant in,WikibaseItem,Did this person participate in QQ ?
+p1346,winner,WikibaseItem,Did this person win QQ ?
+p1347,military casualty classification,WikibaseItem,Was this person QQ ?
+p1365,replaces,WikibaseItem,Did this person replace QQ ?
+p1366,replaced by,WikibaseItem,Was this person replaced by QQ ?
+p1387,political alignment,WikibaseItem,Is this person in political QQ ?
+p1399,convicted of,WikibaseItem,Was this person guilty of QQ ?
+p1411,nominated for,WikibaseItem,Was this person nominated for QQ ?
+p1412,languages spoken (written or signed),WikibaseItem,Does this person speak/write in QQ ?
+p1416,affiliation,WikibaseItem,Is this person affiliated with QQ ?
+p1429,has pet,WikibaseItem,Does/Did this person have a pet QQ ?
+p1441,present in work,WikibaseItem,Was this person present in QQ ?
+p1449,nickname,WikibaseItem,Is this persons nickname QQ ?
+p1476,title,Monolingualtext,Did this person publish a work called QQ ?
+p1477,birth name,Monolingualtext,Is this persons birth name QQ ?
+p1532,country for sport,WikibaseItem,Does this person represent QQ in sports ?
+p1542,has effect,WikibaseItem,Did this person have effect on QQ ?
+p1552,has quality,WikibaseItem,Is this person a QQ ?
+p1576,lifestyle,WikibaseItem,Does this person practice QQ ?
+p1595,charge,WikibaseItem,Was this person charged with QQ ?
+p1596,penalty,WikibaseItem,Was this person punished by QQ ?
+p1598,consecrator,WikibaseItem,Was this person consecrated by QQ ?
+p1618,sport number,String,Does this person normally play with number QQ ?
+p1640,curator,WikibaseItem,Is this person a curator at QQ ?
+p1652,referee,WikibaseItem,Is this person a referee for QQ ?
+p1686,for work,WikibaseItem,Was this person awarded QQ for his work ?
+p1716,brand,WikibaseItem,Is this person associated with QQ ?
+p1731,Fach,WikibaseItem,Does this person have QQ voice type ?
+p1775,follower of,WikibaseItem,Is this person a follower of QQ ?
+p1830,owner of,WikibaseItem,Does this person own QQ ?
+p1884,hair color,WikibaseItem,Does this person have QQ ?
+p1995,health speciality,WikibaseItem,Does this person specialize in QQ ?
+p2094,competition class,WikibaseItem,Does this person compete in QQ class ?
+p2095,co-driver,WikibaseItem,Does this person drive together with QQ ?
+p2283,uses,WikibaseItem,Does this person use QQ ?
+p2318,debut participant,WikibaseItem,Did this person have its debut in QQ ?
+p2341,indigenous to,WikibaseItem,Is this person indigenous to QQ ?
+p2408,set in period,WikibaseItem,Did this person work during QQ ?
+p2416,sports discipline competed in,WikibaseItem,Did this person compete in QQ ?
+p2522,victory,WikibaseItem,Did this person win QQ ?
+p2545,bowling style,WikibaseItem,Does this person employ a QQ bowling style ? (cricket)
+p2579,studied by,WikibaseItem,Is this person connected to QQ ?
+p2596,culture,WikibaseItem,Is this person culturally associated with QQ ?
+p2632,place of detention,WikibaseItem,Has this person been held in QQ ?
+p2650,interested in,WikibaseItem,Is this person interested in QQ ?
+p2652,partnership with,WikibaseItem,Did this person partner with QQ ?
+p2770,source of income,WikibaseItem,Does this person earn money through QQ ?
+p2936,language used,WikibaseItem,Does this person communicate using QQ ?
+p2962,title of chess person,WikibaseItem,Is this person a chess QQ ?
+p3091,mount,WikibaseItem,Does this person ride a QQ ?
+p3150,birthday,WikibaseItem,Is this persons birthday on QQ ?
+p3320,board member,WikibaseItem,Is this person a board member of QQ ?
+p3342,significant person,WikibaseItem,Is this person connected to QQ ?
+p3373,sibling,WikibaseItem,Is QQ this persons sibling ?
+p3438,vehivle normally used,WikibaseItem,Does this person normally use QQ ?
+p3448,stepparent,WikibaseItem,Is QQ this persons stepparent ?
+p3602,candidacy in election,WikibaseItem,Was this person a candidate in QQ ?
+p3701,incarnation of,WikibaseItem,Is this person an incarnation of QQ ?
+p3716,social classification,WikibaseItem,Could this person be classified as QQ ?
+p4444,reward,WikibaseItem,Was this person rewarded with QQ ?
+p4622,trophy awarded,WikibaseItem,Was this person awarded a QQ trophy ?
+p5012,special rank,WikibaseItem,Does this person have a special rank of QQ ?
+p5052,supervisory board member,WikibaseItem,Is this person a supervisory board member in QQ ?
+p5054,member of cabinet,WikibaseItem,Is this person a member of QQ ?
+p5096,member of the crew of,WikibaseItem,Was this person a crewmember of QQ ?
+p5249,sports competition competed at,WikibaseItem,Did this person compete at QQ ?
+p5389,permament resident of,WikibaseItem,Is this person a permament resident of QQ ?
+p5832,political coalition,WikibaseItem,Is this person affiliated with QQ ?
+p6087,coach of sports team,WikibaseItem,Is this person a coach of QQ ?
+p6379,has works in the collection,WikibaseItem,Are this persons works a part of QQ collection ?
+p6758,supported sports team,WikibaseItem,Has this person supported QQ ?
+p6872,has written for,WikibaseItem,Has this person written for QQ ?
+p6886,writing language,WikibaseItem,Does this person write in QQ ?
+p7047,enemy of,WikibaseItem,Is this person an enemy of QQ ?
+p7153,significant place,WikibaseItem,Is this person connected to QQ ?
+p7406,style of karate,WikibaseItem,Does this person practice QQ karate ?
+p7779,military unit,WikibaseItem,Is this person a member of QQ ?
+p8006,footedness,WikibaseItem,Does this player display QQ ?
+p8810,parent,WikibaseItem,Is QQ this persons parent ?
+p8839,hairstyle / hairlength,WikibaseItem,Is QQ this persons hairstyle/length ?
+p8852,facial hair,WikibaseItem,Does this person have a QQ ? (facial hair)
+p9549,official podcast,WikibaseItem,Does this person runs QQ ?
+p9929,madhhab,WikibaseItem,Is this person a student of QQ school of thought ?
+p10449,trained by,WikibaseItem,Was this person trained by QQ ?
+p10606,notable role,WikibaseItem,Is this person known for playing QQ ?
+p10642,place of disappearance,WikibaseItem,Did this person dissapear in QQ ?
+p10729,finisher,WikibaseItem,Is QQ this persons finisher ?
+p10741,dance style,WikibaseItem,Is QQ this persons dance style ?

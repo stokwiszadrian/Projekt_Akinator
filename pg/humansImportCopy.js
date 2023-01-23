@@ -37,8 +37,6 @@ const humanscopyfile =  () => {
   fs.writeFileSync('humansCreateTable.txt', createQuery)
 
   const files = allFiles
-  // const files = allFiles
-//   console.log(files)
   let i = 0
   const file = files[0]
   // for (const file of files) {

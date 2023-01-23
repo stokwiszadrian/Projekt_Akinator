@@ -1,7 +1,6 @@
 import os.path
 import time
 import json
-import itertools
 from os import walk
 
 from qwikidata.entity import WikidataItem
@@ -26,13 +25,10 @@ else:
             entities = json.loads(f.read())
             for i in entities:
                 for claim in i['claims']:
-                    # print(claim, i['claims'][claim])
                     for value in i['claims'][claim]:
-                        # print(value, claim)
                         if value['datatype'] == 'wikibase-item':
                             if value['datavalue']['id'] not in propEntities:
                                 propEntities.add(value['datavalue']['id'])
-                # print(j, len(propEntities))
         print(f"done {filename} ", len(propEntities))
 
     with open("../resources/propEntities/propEntities.json", "w") as f:
@@ -46,15 +42,18 @@ wjd_iterator = wjd.iter_lines()
 # dictn - nr pliku wygenerowanego z tego programu
 # dicts - nr seryjny plików dla tego programu
 # n - liczba obiektów do pominięcia
+# maxrange - liczba obiektów, przy której program zatrzyma działanie
+# całkowita liczba rekordów "przejrzana" przez program = maxrange - n
+# liczba rekordów w dumpie =~ 110mln
 
 dictn = 0
 dicts = 1
 n = 50000001
-
 maxrange = 60000000
 
 print(f"SEARCH {n} - {n+maxrange}")
 
+# Pomijanie n pierwszych rekordów
 for i in range(0, n):
     wjd_iterator.__next__()
 
@@ -79,7 +78,6 @@ for entity_dict in wjd_iterator:
         print("Done!")
         labels = []
         break
-
 
     if entity_dict['id'] in propEntities:
         entity = WikidataItem(entity_dict)

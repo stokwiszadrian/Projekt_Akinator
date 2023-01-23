@@ -53,11 +53,13 @@ wjd_iterator = wjd.iter_lines()
 # dictn - nr pliku wygenerowanego z tego programu
 # dicts - nr seryjny plików dla tego programu
 # n - liczba obiektów do pominięcia
+# maxrange - liczba obiektów, przy której program zatrzyma działanie
+# całkowita liczba rekordów "przejrzana" przez program = maxrange - n
+# liczba rekordów w dumpie =~ 110mln
 
 dictn = 0
 dicts = 0
 n = 0
-
 maxrange = 50000000
 
 print(f"SEARCH {n} - {n+maxrange}")

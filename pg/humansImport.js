@@ -6,7 +6,6 @@ const shell = require('shelljs')
 const StreamZip = require('node-stream-zip')
 
 const fs = require('fs')
-// console.log(allFiles)
 const file = 'humans.csv'
 
 const client = require('./pgClient');

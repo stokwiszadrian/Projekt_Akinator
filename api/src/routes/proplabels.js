@@ -15,7 +15,7 @@ router.get('/bylabel/:label', async (req, res) => {
 
 router.get('/bypid/:pid', async (req, res) => {
     const pid = req.params.pid
-    const entities = await client.query(`SELECT prop_label FROM propertylabels WHERE pid = '${pid}'`)
+    const entities = await client.query(`SELECT prop_label, question FROM propertylabels WHERE pid = '${pid}'`)
     res.send(entities.rows[0])
 })
 

@@ -1,3 +1,4 @@
+# ------ Zwracanie liczby liści w danym drzewie
 def leaf_nodes_total(d):
     sum = 0
     for k, v in d.items():
@@ -8,6 +9,7 @@ def leaf_nodes_total(d):
     return sum
 
 
+# ------ Zwraca liczbę liści przypadającą na dany klucz w drzewie
 def leaf_nodes_per_key(d, prop=False):
     sums_dict = {}
 
@@ -25,6 +27,7 @@ def leaf_nodes_per_key(d, prop=False):
     return sums_dict
 
 
+# ------ Zwraca korzeń i jego najlepszą wartość
 def best_prop_value(d, excluded_values=[]):
     root = next(iter(d))
     max = 0
@@ -35,6 +38,8 @@ def best_prop_value(d, excluded_values=[]):
             maxValue = k
     return root, maxValue
 
+
+# ------ Generuje poddrzewo z listy klucz-wartosc otrzymywanej od użytkownika
 def get_subtree(d, instance):
     instancecp = instance.copy()
     for k, v in instance.items():
@@ -47,32 +52,3 @@ def get_subtree(d, instance):
             return subtree
         else:
             return get_subtree(subtree, instancecp)
-
-
-if __name__ == "__main__":
-    testdict = {
-        "ab": {
-            "cd": 12,
-            "e": 412,
-            "fs": {
-                "asf": "1234",
-                "gsa": {
-                    "123": "ff"
-                }
-            },
-            "sdfh": {
-                "asd": 533,
-                "1234": 346
-            }
-        }
-    }
-    grouped = leaf_nodes_per_key(testdict, True)
-    print(grouped)
-    print(best_prop_value(grouped, ["fs", "sdfh"]))
-    instance = {
-        "ab": "fs",
-        "as": "xd"
-    }
-    subtree = get_subtree(testdict, instance)
-    print(subtree)
-

@@ -3,7 +3,7 @@ const client = new Client({
     user: process.env.PGUSER || 'postgres',
     host: process.env.PGHOST || 'localhost',
     password: process.env.PGPASSWORD || 'tajne',
-    database: process.env.PGDATABASE || 'postgres',
+    database: process.env.PGDATABASE || 'akinatordb',
     port: process.env.PGPORT || '5432'
 });
 

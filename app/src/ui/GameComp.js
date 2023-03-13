@@ -2,13 +2,11 @@ import { useEffect, useState } from "react"
 import { Link} from "react-router-dom"
 import { Button, Grid, Typography, Collapse } from "@mui/material"
 import axios from "axios"
-import { MD5 } from "crypto-js"
 
 const GameComp = (props) => {
     const apiUrl = 'http://localhost:4000/'
     const timeoutValue = 450
     const [collapseState, setCollapseState] = useState(false)
-    // const [questionNumber, setQuestionNumber] = useState(1)
     const [imgUrl, setImgUrl] = useState("")
     const [gameState, setGameState] = useState({
         answered_yes: false,
@@ -21,10 +19,6 @@ const GameComp = (props) => {
     })
 
     const handleClick = (ans) => {
-        // setTimeout(() => {
-        //     // const res = await axios.post("http://localhost:5000", gameState)
-        //     setCollapseState(false)
-        // }, 450)
         setCollapseState(false)
         const questionKey = Object.keys(currentQuestion.value)[0]
         // Jeśli odpowiedź brzmi "Tak"
@@ -51,11 +45,6 @@ const GameComp = (props) => {
             })
         }
 
-        
-        // setTimeout(() => {
-        //     // const res = await axios.post("http://localhost:5000", gameState)
-        //     setCollapseState(true)
-        // }, 450)
     }
 
     const handleRestart = () => {
@@ -72,15 +61,8 @@ const GameComp = (props) => {
                 value: {}
             })
         }, timeoutValue)
-        // setTimeout(() => {
-        //     // const res = await axios.post("http://localhost:5000", gameState)
-        //     setCollapseState(true)
-        // }, 450)
     }
 
-    // useEffect(() => {
-    //     setCollapseState(true)
-    // }, [])
 
     useEffect(() => {
         setCollapseState(false)
@@ -104,14 +86,6 @@ const GameComp = (props) => {
                 setCollapseState(true)
             }
         }
-        // fetchData()
-        // setTimeout(async () => {
-        //     await fetchData()
-        // }, 1000)
-        // // fetchData().then(res => {
-        // //     setCollapseState(true)
-        // // })
-        // fetchData()
         setTimeout(async () => {
             fetchData()
         }, timeoutValue)
@@ -141,7 +115,7 @@ const GameComp = (props) => {
                                 <Grid item xs={12} display="flex" justifyContent="center">
                                     <Grid container spacing={0} justifyContent="center">
                                         <Grid item xs={12} display="flex" justifyContent="center">
-                                            <Typography fontSize={{md: '4.5ex', xs: '3ex'}} sx={{ color: 'white'}}>
+                                            <Typography fontSize={{md: '4.5ex', xs: '4ex'}} sx={{ color: 'white'}}>
                                                 <i>{currentQuestion.question}</i>
                                             </Typography>
                                         </Grid>
@@ -157,7 +131,6 @@ const GameComp = (props) => {
                                                 height: '100%'
                                             }}
                                             onLoad={() => {
-                                                console.log("LOADED")
                                                 setCollapseState(true)
                                                 }}></img> 
                                             {/* <Button variant="contained" fullWidth color="error" onClick={() => handleClick(false)}>
@@ -166,7 +139,7 @@ const GameComp = (props) => {
                                                 </Typography>
                                             </Button> */}
                                         </Grid>
-                                        <Grid item xs={6} display="flex" justifyContent="center">
+                                        <Grid item xs={6} display="flex" justifyContent="center" marginTop={"1ex"}>
                                             <Button variant="contained" fullWidth color="error" onClick={() => handleRestart()}>
                                                 <Typography variant="h5" sx={{ color: 'white' }}>
                                                     <b>Restart</b>

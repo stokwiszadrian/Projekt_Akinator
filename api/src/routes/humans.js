@@ -52,28 +52,6 @@ router.get('/img/:qid', async (req, res) => {
     }
 })
 
-
-// Przykładowy json dla /filter
-
-// {
-//     "P106": [
-//         {
-//             "type": "WikibaseItem",
-//             "value": "Q82955"
-//         },
-//         {
-//             "type": "WikibaseItem",
-//             "value":  "Q189290"
-//         }
-//     ],
-//     "P569": [
-//         {
-//             "type": "Time",
-//             "value": ">2000-01-01"
-//         }
-//     ]
-// }
-
 router.post('/filter', async (req, res) => {
 
     const cond = conditionBuilder(req.body)

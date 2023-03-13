@@ -12,8 +12,8 @@ const MainComp = (props) => {
     const LogoImg = () => {
         let styles = {
             display: 'block',
-            'maxWidth': '306px',
-            'maxHeight': '250px',
+            'maxWidth': '250px',
+            'maxHeight': '200px',
             width: 'auto',
             height: 'auto',
             'marginTop': '20%'

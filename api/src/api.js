@@ -6,8 +6,9 @@ const humans = require('./routes/humans');
 const proplabels = require('./routes/proplabels');
 const entlabels = require('./routes/entlabels');
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+
 app.use("/api/humans", humans);
 app.use("/api/proplabels", proplabels);
 app.use("/api/entlabels", entlabels);

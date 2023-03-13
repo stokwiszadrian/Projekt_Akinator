@@ -9,6 +9,8 @@ import requests
 
 sys.setrecursionlimit(10000)
 
+api_url = 'http://localhost:4000/'
+
 if __name__ == "__main__":
     if path.exists("decision_tree.json"):
         with open("decision_tree.json", "r") as f:
@@ -32,7 +34,7 @@ if __name__ == "__main__":
                     else:
                         best_prop, best_value = best_prop_value(subtree, excluded)
 
-                    response = requests.get(f"http://localhost:4000/api/proplabels/bypid/{best_prop}").json()
+                    response = requests.get(f"{api_url}api/proplabels/bypid/{best_prop}").json()
                     prop_label = response['prop_label']
                     question = response['question']
                     if best_value is None:
@@ -48,7 +50,7 @@ if __name__ == "__main__":
                         if re.search(matchstring, best_value) is not None:
                             print("Searching...")
                             try:
-                                value_label = requests.get(f"http://localhost:4000/api/entlabels/byqid/{best_value}").json()["label"]
+                                value_label = requests.get(f"{api_url}api/entlabels/byqid/{best_value}").json()["label"]
                             except requests.exceptions.JSONDecodeError as e:
                                 value_label = best_value
                         else:
@@ -71,7 +73,7 @@ if __name__ == "__main__":
                 else:
                     subtree = get_subtree(decision_tree, instance)
                     if isinstance(subtree, str):
-                        person_label = requests.get(f"http://localhost:4000/api/humans/byqid/{subtree}").json()["label"]
+                        person_label = requests.get(f"{api_url}api/humans/byqid/{subtree}").json()["label"]
 
                         return {
                             "question": f"{person_label}",
@@ -85,7 +87,7 @@ if __name__ == "__main__":
                             best_prop, best_value = best_prop_value(counted)
                         else:
                             best_prop, best_value = best_prop_value(counted, excluded)
-                        response = requests.get(f"http://localhost:4000/api/proplabels/bypid/{best_prop}").json()
+                        response = requests.get(f"{api_url}api/proplabels/bypid/{best_prop}").json()
                         prop_label = response['prop_label']
                         question = response['question']
                         if best_value is None:
@@ -101,7 +103,7 @@ if __name__ == "__main__":
                             if re.search(matchstring, best_value) is not None:
                                 print("Searching...")
                                 try:
-                                    value_label = requests.get(f"http://localhost:4000/api/entlabels/byqid/{best_value}").json()["label"]
+                                    value_label = requests.get(f"{api_url}api/entlabels/byqid/{best_value}").json()["label"]
                                 except requests.exceptions.JSONDecodeError as e:
                                     value_label = best_value
                             else:

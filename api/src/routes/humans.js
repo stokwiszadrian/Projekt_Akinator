@@ -36,6 +36,7 @@ router.post('/new', async (req, res) => {
 })
 
 router.get('/img/:qid', async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
     const imgRequest = await fetch(
         `https://www.wikidata.org/w/api.php?action=wbgetclaims&property=P18&entity=${req.params.qid}&format=json`, {
             method: 'GET',

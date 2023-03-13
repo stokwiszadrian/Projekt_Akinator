@@ -5,6 +5,8 @@ import axios from "axios"
 import { MD5 } from "crypto-js"
 
 const GameComp = (props) => {
+    const apiUrl = 'http://localhost:4000/'
+    const timeoutValue = 450
     const [collapseState, setCollapseState] = useState(false)
     // const [questionNumber, setQuestionNumber] = useState(1)
     const [imgUrl, setImgUrl] = useState("")
@@ -18,7 +20,11 @@ const GameComp = (props) => {
         value: {}
     })
 
-    const mockHandleClick = (ans) => {
+    const handleClick = (ans) => {
+        // setTimeout(() => {
+        //     // const res = await axios.post("http://localhost:5000", gameState)
+        //     setCollapseState(false)
+        // }, 450)
         setCollapseState(false)
         const questionKey = Object.keys(currentQuestion.value)[0]
         // Jeśli odpowiedź brzmi "Tak"
@@ -46,24 +52,45 @@ const GameComp = (props) => {
         }
 
         
-        setTimeout(() => {
-            // const res = await axios.post("http://localhost:5000", gameState)
-            setCollapseState(true)
-        }, 450)
+        // setTimeout(() => {
+        //     // const res = await axios.post("http://localhost:5000", gameState)
+        //     setCollapseState(true)
+        // }, 450)
     }
 
-    useEffect(() => {
-        setCollapseState(true)
-    }, [])
+    const handleRestart = () => {
+        setCollapseState(false)
+        setTimeout(() => {
+            setGameState({
+                answered_yes: false,
+                instance: {},
+                excluded: []
+            })
+            setImgUrl("")
+            setCurrentQuestion({
+                question: "",
+                value: {}
+            })
+        }, timeoutValue)
+        // setTimeout(() => {
+        //     // const res = await axios.post("http://localhost:5000", gameState)
+        //     setCollapseState(true)
+        // }, 450)
+    }
+
+    // useEffect(() => {
+    //     setCollapseState(true)
+    // }, [])
 
     useEffect(() => {
+        setCollapseState(false)
         const fetchData = async () => {
             const res = await axios.post("http://localhost:5000", gameState)
             setCurrentQuestion(res.data)
             console.log(res.data)
             if (!res.data.question.includes("?")) {
                 if (res.data.value.guess != null) {
-                    const imgRequest = await axios.get(`http://localhost:4000/api/humans/img/${res.data.value.guess}`)
+                    const imgRequest = await axios.get(`${apiUrl}api/humans/img/${res.data.value.guess}`)
                     if (imgRequest.data != "Not found") {
                         setImgUrl(`https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/${imgRequest.data}`)
                     } else {
@@ -73,9 +100,22 @@ const GameComp = (props) => {
                     setImgUrl('../default_person.png')
                 }
                 
+            } else {
+                setCollapseState(true)
             }
         }
-        fetchData()
+        // fetchData()
+        // setTimeout(async () => {
+        //     await fetchData()
+        // }, 1000)
+        // // fetchData().then(res => {
+        // //     setCollapseState(true)
+        // // })
+        // fetchData()
+        setTimeout(async () => {
+            fetchData()
+        }, timeoutValue)
+        
     }, [gameState])
 
 
@@ -107,16 +147,33 @@ const GameComp = (props) => {
                                         </Grid>
                                    
                                         { (imgUrl !== "") ? 
-                                        <Grid item xs={12} display="flex" justifyContent="center">
+                                        <>
+                                        <Grid item xs={12} display="flex" justifyContent="center" >
                                             <img 
                                             src={imgUrl}
                                             style={{
                                                 maxWidth: '60%',
                                                 // maxHeight: '60%',
                                                 height: '100%'
-                                            }}></img> 
+                                            }}
+                                            onLoad={() => {
+                                                console.log("LOADED")
+                                                setCollapseState(true)
+                                                }}></img> 
+                                            {/* <Button variant="contained" fullWidth color="error" onClick={() => handleClick(false)}>
+                                                <Typography variant="h5" sx={{ color: 'white' }}>
+                                                    <b>Restart</b>
+                                                </Typography>
+                                            </Button> */}
                                         </Grid>
-                                        
+                                        <Grid item xs={6} display="flex" justifyContent="center">
+                                            <Button variant="contained" fullWidth color="error" onClick={() => handleRestart()}>
+                                                <Typography variant="h5" sx={{ color: 'white' }}>
+                                                    <b>Restart</b>
+                                                </Typography>
+                                            </Button>
+                                        </Grid>
+                                        </>
                                         :
                                         <Grid item xs={12}>
                                             <></>
@@ -127,14 +184,14 @@ const GameComp = (props) => {
                                     { (imgUrl === "" ) ? 
                                     <Grid container spacing={3} justifyContent="center" alignItems="center" padding={4}>
                                         <Grid item xs={4} md={3} xl={2.5}>
-                                            <Button variant="contained" fullWidth color="error" onClick={() => mockHandleClick(false)}>
+                                            <Button variant="contained" fullWidth color="error" onClick={() => handleClick(false)}>
                                                 <Typography variant="h5" sx={{ color: 'white' }}>
                                                     <b>NO</b>
                                                 </Typography>
                                             </Button>
                                         </Grid>
                                         <Grid item xs={4} md={3} xl={2.5}>
-                                            <Button variant="contained" fullWidth color="success" onClick={() => mockHandleClick(true)}>
+                                            <Button variant="contained" fullWidth color="success" onClick={() => handleClick(true)}>
                                                 <Typography variant="h5" sx={{ color: 'white' }}>
                                                     <b>YES</b>
                                                 </Typography>

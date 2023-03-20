@@ -11,9 +11,11 @@ sys.setrecursionlimit(10000)
 
 api_url = 'http://localhost:4000/'
 
+treepath = "../resources/decision_tree.json"
+
 if __name__ == "__main__":
-    if path.exists("decision_tree.json"):
-        with open("decision_tree.json", "r") as f:
+    if path.exists(treepath):
+        with open(treepath, "r") as f:
             decision_tree = json.load(f)
             app = Flask(__name__)
             cors = CORS(app)

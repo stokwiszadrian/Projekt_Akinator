@@ -28,11 +28,11 @@ if __name__ == "__main__":
     DB_HOST = 'localhost'
     DB_USER = 'postgres'
     DB_PASSWORD = 'tajne'
-    DB_NAME = 'db_from_restore'
+    DB_NAME = 'projectdb'
 
     # ------ Ilość rekordów pobieranych "z wierzchu"
 
-    num_entries = 100000
+    num_entries = 1000000
 
     conn = pg.connect(
         dbname=DB_NAME,
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
     decision_tree = id3(all, "qid", class_list, features)
     print("Decision tree generated")
-    with open("decision_tree.json", "w") as f:
+    with open("../resources/decision_tree.json", "w") as f:
         json.dump(decision_tree, f)
 
     cur.close()

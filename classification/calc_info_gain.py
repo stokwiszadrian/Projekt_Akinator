@@ -1,25 +1,28 @@
+import numpy as np
+
 
 def calc_info_gain(feature_name, train_data, class_list):
     feature_value_list = [None]
     feature_count = 0
+    append = feature_value_list.append
+    # for idx in np.arange(0, len(class_list)):
+    #     try:
+    #         feature_value = train_data[class_list[idx]][feature_name]
     for c in class_list:
-        feature_value = train_data[c].get(feature_name, None)
-        # ------ Uwzględniamy również wartości puste
-        if feature_value is None:
-            if "None" not in feature_value_list:
-                feature_value_list.append("None")
-                feature_count += 1
-        elif isinstance(feature_value, str):
+        try:
+            feature_value = train_data[c][feature_name]
             if "|" in feature_value:
                 splits = feature_value.split(" | ")
                 for split in splits:
-                    feature_value_list.append(split)
+                    append(split)
             else:
-                feature_value_list.append(feature_value)
+                append(feature_value)
             feature_count += 1
-        # ------ Typy inne niż String są ignorowane
-        else:
-            return -1
+        except KeyError as k:
+            if "None" not in feature_value_list:
+                append("None")
+                feature_count += 1
+
     feature_value_list = list(set(feature_value_list))
 
     # ------ Ignorujemy przypadki gdy kolumna dla wszystkich jest pusta

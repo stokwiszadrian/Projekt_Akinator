@@ -33,7 +33,7 @@ def profile_func():
 
     # ------ Ilość rekordów pobieranych "z wierzchu"
 
-    num_entries = 100000
+    num_entries = 10000
 
     conn = pg.connect(
         dbname=DB_NAME,
@@ -63,7 +63,6 @@ def profile_func():
     result = list(map(lambda x: x[2], result))
     label = result[0]
     features = result[2:]
-    print(label)
 
     # ------ Pobieranie rekordów osób
 
@@ -72,11 +71,7 @@ def profile_func():
     cur = conn.cursor(name="humanscursor")
     cur.execute(humansquery)
 
-    print("SIZE OF CUR", sys.getsizeof(cur))
-
-    print("SIZE OF RESULT", sys.getsizeof(result))
-    print("SIZE OF CUR", sys.getsizeof(cur))
-    for v in range(0, 100):
+    for v in range(0, 10):
         print(v)
         result = cur.fetchmany(1000)
         class_list += list(map(lambda x: x[0], result))
@@ -86,13 +81,7 @@ def profile_func():
                 if entry[j] is not None:
                     all[entry[0]][features[j - 2]] = entry[j]
         del result
-    print("SIZE OF ALL", sys.getsizeof(all))
-    print("SIZE OF Q23", sys.getsizeof(all["Q23"]))
     gc.collect()
-    print("Human entries fetched")
-    print("SIZE OF class_list", sys.getsizeof(class_list))
-    print("SIZE OF features", sys.getsizeof(features))
-    print("SIZE OF conn", sys.getsizeof(conn))
     decision_tree = id3(all, "qid", class_list, features)
     print("Decision tree generated")
     with open("../resources/decision_tree.json", "w") as f:

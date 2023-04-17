@@ -1,7 +1,6 @@
 import os.path
 import time
 import json
-import itertools
 from os import walk
 
 from qwikidata.entity import WikidataItem
@@ -30,11 +29,9 @@ else:
                         propertyList.add(claim)
 
                     for value in i['claims'][claim]:
-                        # print(value, claim)
                         if value['datatype'] == 'wikibase-item':
                             if value['datavalue']['id'] not in propEntities:
                                 propEntities.add(value['datavalue']['id'])
-                # print(j, len(propEntities))
         print(f"done {filename} ", len(propEntities), len(propertyList))
 
     with open("../resources/propEntities/propEntities.json", "w") as f:
@@ -42,8 +39,6 @@ else:
 
     with open("../resources/itemProps/humanItemProps.json", "w") as f:
         f.write(json.dumps(list(propertyList)))
-
-exit(123)
 
 wjd_dump_path = "../latest-all.json.bz2"
 wjd = WikidataJsonDump(wjd_dump_path)

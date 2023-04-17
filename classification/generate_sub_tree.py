@@ -1,13 +1,23 @@
 import re
 
 
-def generate_sub_tree(feature_name, train_data, label, class_list):
+def generate_sub_tree(feature_name, train_data, class_list):
+    """Generates a single-layered subtree to build upon during the creation of a decision tree.
+
+    The nodes that can be expanded upon will contain the value "?", while the leaf nodes will contain their respectable value.
+    Returning train data will be filtered to not contain nodes whose values for feature *feature_name* are different
+    from the value in the leaf node.
+
+    :param feature_name: The name of the attribute.
+    :param train_data: Dataset used to generate decision tree.
+    :param class_list: List of classes pulled from the dataset.
+    :return: tree: A single-layered subtree dict, train_data_cp: Current dataset, filtered for unfit values.
+    """
     feature_value_count_dict = {}
     # ------ Zliczanie ilości wystąpień danej wartości wybranego atrybutu
     for c in class_list:
         try:
             feature_value = train_data[c][feature_name]
-            # if isinstance(feature_value, str):
             if "|" in feature_value:
                 splits = feature_value.split(" | ")
                 for split in splits:
@@ -25,29 +35,9 @@ def generate_sub_tree(feature_name, train_data, label, class_list):
                 feature_value_count_dict["None"] = 1
             else:
                 feature_value_count_dict["None"] += 1
-        # feature_value = train_data[c].get(feature_name, None)
-        # if feature_value is None:
-        #     if "None" not in feature_value_count_dict.keys():
-        #         feature_value_count_dict["None"] = 1
-        #     else:
-        #         feature_value_count_dict["None"] += 1
-        # if isinstance(feature_value, str):
-        #     if "|" in feature_value:
-        #         splits = feature_value.split(" | ")
-        #         for split in splits:
-        #             if split not in feature_value_count_dict.keys():
-        #                 feature_value_count_dict[split] = 1
-        #             else:
-        #                 feature_value_count_dict[split] += 1
-        #     else:
-        #         if feature_value not in feature_value_count_dict.keys():
-        #             feature_value_count_dict[feature_value] = 1
-        #         else:
-        #             feature_value_count_dict[feature_value] += 1
     # ------ Generowanie poddrzewa
     tree = {}
     train_data_cp = train_data.copy()
-    train_data_len_b4 = len(train_data.keys())
 
     # ------ Pętla dla każdej pary wartość - ilość wystąpień
     for feature_value, count in feature_value_count_dict.items():
@@ -70,7 +60,6 @@ def generate_sub_tree(feature_name, train_data, label, class_list):
             if class_count == count:
                 tree[feature_value] = c
                 matchstring = f'^{re.escape(feature_value)}$|\s{re.escape(feature_value)}\s|^{re.escape(feature_value)}\s'
-                matchstring_old = f'^{feature_value}$|\s{feature_value}\s|^{feature_value}\s'
                 # ------ filtrowanie encji, dla których dany atrybut ma inna wartość niż wartość w liściu
                 train_data_cp = {k: v for k, v in train_data_cp.items() if v.get(feature_name, None) is None or (v.get(feature_name, None) is not None and re.search(matchstring, v.get(feature_name, None)) is None)}  # removing rows with feature_value
 
@@ -80,7 +69,5 @@ def generate_sub_tree(feature_name, train_data, label, class_list):
             # ------ oznaczenie tego miejsca w drzewie jako miejsca do potencjalnej eksapnsji
             tree[feature_value] = "?"
 
-    train_data_len_after = len(train_data_cp.keys())
-    # print("LENGTH BEFORE: ", train_data_len_b4, "\nLENGTH AFTER: ", train_data_len_after, "\n")
     # ------ zwracanie drzewa i nowej listy encji
     return tree, train_data_cp

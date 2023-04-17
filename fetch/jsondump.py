@@ -11,7 +11,7 @@ Q_HUMAN = "Q5"
 
 
 def instanceof_human(item: WikidataItem, truthy: bool = True) -> bool:
-    """Zwraca True gdy dany WikidataItem jest instancją człowieka"""
+    """Returns True when given WikidataItem is an instance of a human"""
     if truthy:
         claim_group = item.get_truthy_claim_group(P_INSTANCEOF)
     else:

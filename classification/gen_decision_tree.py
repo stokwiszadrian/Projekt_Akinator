@@ -2,8 +2,7 @@ import gc
 import sys
 import json
 import psycopg2 as pg
-from id3 import id3
-from memory_profiler import profile
+from make_tree import make_tree
 
 sys.setrecursionlimit(10000)
 
@@ -14,26 +13,28 @@ def castDate(value, cur):
             return int(value.split("-")[0]) * -1
         else:
             return int(value.split("-")[0])
-        # return year
     else:
         return None
 
 
-# @profile
-def profile_func():
+def gen_decision_tree(num_entries=100000):
+    """Connects to the postgres database, fetches the desired number of entries and generates a decision tree.
+    The tree will be saved at *../resources/decision_tree.json*
+
+    Note that the entries are sorted and fetched based on their QID length, with lower QID length usually meaning a
+    person with more and better described features.
+
+    :param num_entries: The number of entries to use. Defaults to 100 000. Cannot be lower than 10.
+    """
+    #
+
     DATE = pg.extensions.new_type((1082,), "DATE", castDate)
     pg.extensions.register_type(DATE)
-
-    # ------ Zmienne połączenia z bazą danych
 
     DB_HOST = 'localhost'
     DB_USER = 'postgres'
     DB_PASSWORD = 'tajne'
     DB_NAME = 'projectdb'
-
-    # ------ Ilość rekordów pobieranych "z wierzchu"
-
-    num_entries = 10000
 
     conn = pg.connect(
         dbname=DB_NAME,
@@ -54,17 +55,14 @@ def profile_func():
                 order by length(qid)
                 limit {num_entries};"""
 
-    # ------ Pobieranie nazw kolumn
+    print(f"Generating a tree for {num_entries} humans")
 
     cur = conn.cursor(name="columncursor")
     cur.execute(columnQuery)
 
     result = cur.fetchall()
     result = list(map(lambda x: x[2], result))
-    label = result[0]
     features = result[2:]
-
-    # ------ Pobieranie rekordów osób
 
     class_list = []
     all = {}
@@ -72,8 +70,8 @@ def profile_func():
     cur.execute(humansquery)
 
     for v in range(0, 10):
-        print(v)
-        result = cur.fetchmany(1000)
+        result = cur.fetchmany(int(num_entries / 10))
+        print(len(result), v)
         class_list += list(map(lambda x: x[0], result))
         for entry in result:
             all[entry[0]] = {}
@@ -82,7 +80,18 @@ def profile_func():
                     all[entry[0]][features[j - 2]] = entry[j]
         del result
     gc.collect()
-    decision_tree = id3(all, "qid", class_list, features)
+    result = cur.fetchmany(num_entries % 10)
+    print(len(result))
+    class_list += list(map(lambda x: x[0], result))
+    for entry in result:
+        all[entry[0]] = {}
+        for j in range(2, len(features) + 2):
+            if entry[j] is not None:
+                all[entry[0]][features[j - 2]] = entry[j]
+    del result
+    decision_tree = {}
+    train_data = all.copy()
+    make_tree(decision_tree, None, train_data, class_list, features)
     print("Decision tree generated")
     with open("../resources/decision_tree.json", "w") as f:
         json.dump(decision_tree, f)
@@ -92,5 +101,14 @@ def profile_func():
 
 
 if __name__ == "__main__":
-    profile_func()
+    import sys
+    try:
+        entries = int(sys.argv[1])
+        gen_decision_tree(entries)
+    except ValueError as v:
+        print("Invalid argument for num_entries, defaulting to 100 000")
+        gen_decision_tree(100000)
+    except IndexError as v:
+        print("Defaulting to 100 000 entries")
+        gen_decision_tree(100000)
 

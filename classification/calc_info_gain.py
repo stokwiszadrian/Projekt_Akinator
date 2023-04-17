@@ -1,13 +1,17 @@
-import numpy as np
-
-
 def calc_info_gain(feature_name, train_data, class_list):
+    """Calculates the information gain of the feature in a given dataset.
+
+    Information gain is calculated by dividing the number of classes by the number of unique
+    values for a given feature. If the feature does not have a value for any class, the function returns -1.
+
+    :param feature_name: String
+    :param train_data: Dict
+    :param class_list: List
+    :return: Float
+    """
     feature_value_list = [None]
     feature_count = 0
     append = feature_value_list.append
-    # for idx in np.arange(0, len(class_list)):
-    #     try:
-    #         feature_value = train_data[class_list[idx]][feature_name]
     for c in class_list:
         try:
             feature_value = train_data[c][feature_name]
@@ -25,11 +29,8 @@ def calc_info_gain(feature_name, train_data, class_list):
 
     feature_value_list = list(set(feature_value_list))
 
-    # ------ Ignorujemy przypadki gdy kolumna dla wszystkich jest pusta
     if len(feature_value_list) == 0:
         return -1
     else:
-        # ------ "Info gain" jest równy liczbie osób z tym atrybutem
-        # ------ podzielony przez liczbe unikalnych wartości tego atrybutu
         return feature_count / len(feature_value_list)
 

@@ -47,10 +47,8 @@ if __name__ == "__main__":
                             }
                         }
                     if best_value != "None":
-                        print("BEST VALUE", best_value, type(best_value))
                         matchstring = 'Q[0-9][0-9]*'
                         if re.search(matchstring, best_value) is not None:
-                            print("Searching...")
                             try:
                                 value_label = requests.get(f"{api_url}api/entlabels/byqid/{best_value}").json()["label"]
                             except requests.exceptions.JSONDecodeError as e:
@@ -100,10 +98,9 @@ if __name__ == "__main__":
                                 }
                             }
                         if best_value != "None":
-                            print("BEST VALUE", best_value)
+
                             matchstring = 'Q[0-9][0-9]*'
                             if re.search(matchstring, best_value) is not None:
-                                print("Searching...")
                                 try:
                                     value_label = requests.get(f"{api_url}api/entlabels/byqid/{best_value}").json()["label"]
                                 except requests.exceptions.JSONDecodeError as e:

@@ -1,6 +1,8 @@
 const express = require("express");
 const client = require('../config/psqlClient');
 const router = express.Router({mergeParams: true});
+const fetch = require("node-fetch")
+const util = require('util')
 
 const rowQuery = `SELECT table_name, count(*) AS column_count
     FROM information_schema."columns"
@@ -36,10 +38,13 @@ router.get('/img/:qid', async (req, res) => {
 
         })
     const imgJson = await imgRequest.json()
+    console.log(util.inspect(imgJson, false, null, true))
     try {
-        const imgPath = imgJson["claims"]["P18"][0]["mainsnak"]["datavalue"]["value"].replaceAll(" ", "_")
+        const imgPath = imgJson["claims"]["P18"][0]["mainsnak"]["datavalue"]["value"].replace(/\s/g, "_")
+        console.log(typeof imgPath)
         return res.send(imgPath)
     } catch(err) {
+        console.log(err)
         return res.status(404).send("Not found")
     }
 })

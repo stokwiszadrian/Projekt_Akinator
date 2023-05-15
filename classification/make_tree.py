@@ -36,7 +36,8 @@ def make_tree(root, prev_feature_value, train_data, class_list, feature_list):
         try:
             feature_list_cp.remove(max_info_feature)
         except ValueError:
-            abc = 'd'
+            # "Obsługa" wyjątku
+            ignore = 'this'
 
         for node, branch in list(next_root.items()):  # iterating the tree node
             if branch == "?":  # if it is expandable

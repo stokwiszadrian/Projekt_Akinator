@@ -12,7 +12,7 @@ SELECT ?property ?propertyLabel ?propertyType WHERE {
 ORDER BY ASC(xsd:integer(STRAFTER(STR(?property), "P")))
 """
 
-datatypes = ['WikibaseItem', 'String', 'Time', 'Monolingualtext', 'Quantity']
+datatypes = ['WikibaseItem', 'String', 'Monolingualtext']
 
 proplist = {}
 res = requests.get(WIKIDATA_SPARQL_URL, params={"query": sparql_query, "format": "json"})
@@ -31,3 +31,5 @@ for prop in rawContent['results']['bindings']:
 with open("../resources/itemProps/itemProps.json", mode="w") as data:
     data.write(json.dumps(proplist))
     data.close()
+
+print("Stworzono ItemProps w lokalizacji ../resources/itemProps/itemProps.json")

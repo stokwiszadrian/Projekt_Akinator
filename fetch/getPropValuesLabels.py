@@ -12,15 +12,17 @@ propEntitiesPath = "../resources/propEntities/propEntities.json"
 
 # Możliwość wygenerowania pliku, jeżeli nie istnieje
 if os.path.isfile("../resources/propEntities/propEntities.json"):
+    print("PropEntities found")
     with open("../resources/propEntities/propEntities.json") as file:
         propEntities = set(json.loads(file.read()))
 else:
-
-    mypath = "../resources"
+    print("PropEntities not found. Creating new file...")
+    mypath = "../resources/humans"
     filenames = next(walk(mypath), (None, None, []))[2]
 
     for filename in filenames:
-        with open(f"../resources/{filename}") as f:
+        print(filename)
+        with open(mypath + "/" + filename) as f:
             entities = json.loads(f.read())
             for i in entities:
                 for claim in i['claims']:

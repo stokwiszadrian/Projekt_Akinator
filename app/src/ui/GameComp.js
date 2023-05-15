@@ -72,12 +72,14 @@ const GameComp = (props) => {
             console.log(res.data)
             if (!res.data.question.includes("?")) {
                 if (res.data.value.guess != null) {
-                    const imgRequest = await axios.get(`${apiUrl}api/humans/img/${res.data.value.guess}`)
-                    if (imgRequest.data != "Not found") {
+                    axios.get(`${apiUrl}api/humans/img/${res.data.value.guess}`)
+                    .then(imgRequest => {
                         setImgUrl(`https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/${imgRequest.data}`)
-                    } else {
+                    })
+                    .catch(err => {
                         setImgUrl('../default_person.png')
-                    }
+                    })
+
                 } else {
                     setImgUrl('../default_person.png')
                 }
@@ -124,6 +126,7 @@ const GameComp = (props) => {
                                         <>
                                         <Grid item xs={12} display="flex" justifyContent="center" >
                                             <img 
+                                            alt="Person's portrait"
                                             src={imgUrl}
                                             style={{
                                                 maxWidth: '60%',

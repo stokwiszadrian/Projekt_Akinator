@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './ducks/store'
-import { Provider } from 'react-redux';
 import { Navigate } from 'react-router';
 import { Routes, Route, BrowserRouter} from 'react-router-dom';
 import GameComp from './ui/GameComp'
@@ -12,7 +10,6 @@ import MainComp from './ui/MainComp';
 import AboutComp from './ui/AboutComp';
 
 ReactDOM.render(
-  <Provider store={store}>
   <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} >
@@ -23,7 +20,7 @@ ReactDOM.render(
         </Route>
       </Routes>
     </BrowserRouter>
-  </Provider>,
+  ,
   document.getElementById('root')
 );
 

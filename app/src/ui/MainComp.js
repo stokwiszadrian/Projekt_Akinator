@@ -25,7 +25,6 @@ const MainComp = (props) => {
                     src='../cropped-Custom-Logo.png'
                     alt="Mentalist Logo"
                     style={styles}
-                    // loading="lazy"
                 />
             )
         )
